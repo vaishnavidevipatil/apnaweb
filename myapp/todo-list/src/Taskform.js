@@ -6,16 +6,15 @@ export default function Taskform() {
         ev.preventDefault();
         onAdd(taskName);
         setTaskName('');
-    }
+      }
+    
     return (
         <form>
-        <button></button>
+        <button>+</button>
         <input type="text" 
         value={taskName}
         onChange={ev => setTaskName(ev.target.value)}
-        placeholder= "Your next task...">
-
-        </input>
+        placeholder= "Your next task..."></input>
       </form>
-    )
+    );
 }
