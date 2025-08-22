@@ -6,6 +6,10 @@ import './App.css'; // Reuse your styling
 const TodoApp = () => {
   const [todos, setTodos] = useState([]);
   const [task, setTask] = useState("");
+  
+const [editingId, setEditingId] = useState(null);
+const [editText, setEditText] = useState("");
+
 
   const fetchTodos = async () => {
     try {
@@ -29,27 +33,31 @@ const TodoApp = () => {
     }
   };
 
-
-//   const updateTodo = async (todo) => {
-//     await axios.put(`http://localhost:8000/update_todo/${todo.id}`, {
-//       task: todo.task,
-//       completed: !todo.completed
-//     });
-//   };
-const updateTodo = async (todo) => {
-    try {
-      await axios.put(`http://localhost:8000/update_todo/${todo.id}`, {
-        task: todo.task,
-        completed: !todo.completed,
-        // optional: user_id: "123" 
-      });
-      fetchTodos(); // refresh list
-    } catch (error) {
-      console.error("Error updating todo:", error.response?.data || error.message);
-    }
-  };
-
+    const updateTodo = async (todo) => {
+        try {
+        await axios.put(`http://localhost:8000/update_todo/${todo.id}`, {
+            task: todo.task,
+            completed: todo.completed,
+        });
+        fetchTodos(); // refresh list
+        } catch (error) {
+        console.error("Error updating todo:", error.response?.data || error.message);
+        }
+    };
   
+
+    const handleEdit = (todo) => {
+    setEditingId(todo.id);
+    setEditText(todo.task);
+    };
+
+    const handleEditSave = async (todo) => {
+    await updateTodo({ ...todo, task: editText });
+    setEditingId(null);
+    setEditText("");
+    };
+
+
   const deleteTodo = async (id) => {
     await axios.delete(`http://localhost:8000/delete_todo/${id}`);
     fetchTodos();
@@ -69,30 +77,47 @@ const updateTodo = async (todo) => {
           value={task}
           onChange={(e) => setTask(e.target.value)}
         />
-        <button type="submit">Add</button>
+        <button type="submit" className="add-button">Add</button>
       </form>
+   
+
       {todos.map((todo) => (
         <div className={`task ${todo.completed ? "done" : ""}`} key={todo.id}>
           <div className="checkbox">
-            {/* <input
+            <input
               type="checkbox"
               checked={todo.completed}
-              onChange={() => updateTodo(todo.id)}
-            /> */}
-            <input
-                type="checkbox"
-                checked={todo.completed}
-                onChange={() => updateTodo(todo)}
+              onChange={() => updateTodo({ ...todo, completed: !todo.completed })}
             />
           </div>
+      
           <div className="task-name">
-            <span>{todo.task}</span>
+            {editingId === todo.id ? (
+              <input
+                type="text"
+                value={editText}
+                onChange={(e) => setEditText(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleEditSave(todo);
+                  }
+                }}
+              />
+            ) : (
+              <span onClick={() => handleEdit(todo)}>{todo.task}</span>
+            )}
           </div>
+      
+          {editingId === todo.id ? (
+            <button onClick={() => handleEditSave(todo)}>✅</button>
+          ) : null}
+      
           <button className="trash" onClick={() => deleteTodo(todo.id)}>
             🗑️
           </button>
         </div>
       ))}
+      
     </main>
   );
 };

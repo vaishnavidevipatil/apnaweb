@@ -139,3 +139,12 @@ Watching employee.json...
 
 Index:
 http://localhost:4500/
+npm init -y
+npm install express cors
+
+
+Run the backend services of fastapi at 8000
+uvicorn main:app --reload
+
+cd todo-list
+npm start

@@ -54,18 +54,7 @@ def get_todos():
     return [todo_serialize(todo) for todo in todos]
 
 
-############## add to todo item ##################
-# @app.post("/add_todo")
-# def add_todo(item: TodoItem):
-#     result = collection.insert_one(item.dict())
-#     new_result = collection.find_one({"_id":result.insert_id})
-#     if new_result:
-#         status_code = 201
-#         message= "Todo created successfully"
-#         return todo_serialize(new_result),status_code, message 
-#     else:
-#         raise HTTPException(status_code=404, detail="Todo not found")
-    
+############## add to todo item ##################   
 @app.post("/add_todo")
 def add_todo(item: TodoItem):
     result = collection.insert_one(item.dict())
@@ -75,7 +64,7 @@ def add_todo(item: TodoItem):
     else:
         raise HTTPException(status_code=500, detail="Failed to insert todo")
     
-        
+########## Update        
 @app.put("/update_todo/{todo_id}")
 def update_todo(todo_id: str, item: TodoItem):
     result= collection.find_one_and_update({"_id": ObjectId(todo_id)},
@@ -90,6 +79,7 @@ def update_todo(todo_id: str, item: TodoItem):
     else:
         raise HTTPException(status_code=404, detail="Todo not found")
     
+# delete todo    
 @app.delete("/delete_todo/{todo_id}")
 def delete_todo(todo_id: str):
     result= collection.find_one_and_delete({"_id":ObjectId(todo_id)})

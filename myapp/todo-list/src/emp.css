@@ -1,0 +1,115 @@
+/* Title */
+.title {
+  text-align: center;
+  margin: 20px 0;
+  color: #333;
+  font-size: 24px;
+}
+
+/* Form Styling */
+.employee-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.employee-form input {
+  padding: 10px;
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.employee-form button {
+  padding: 10px 15px;
+  background: #007bff;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.employee-form button:hover {
+  background: #0056b3;
+}
+
+/* Table Container */
+.table-container {
+  overflow-x: auto;
+  margin: 0 auto;
+  max-width: 90%;
+}
+
+/* Table Styling */
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.employee-table th,
+.employee-table td {
+  padding: 10px 15px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.employee-table th {
+  background: #f4f4f4;
+  color: #333;
+  font-weight: bold;
+}
+
+.employee-table tr:hover {
+  background: #f9f9f9;
+}
+
+/* Buttons */
+.edit-btn {
+  background: #28a745;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  margin-right: 5px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background: #218838;
+}
+
+.delete-btn {
+  background: #dc3545;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #c82333;
+}
+
+/* Responsive for Mobile */
+@media (max-width: 768px) {
+  .employee-form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .employee-form input {
+    width: 90%;
+  }
+
+  .employee-table th,
+  .employee-table td {
+    padding: 8px;
+    font-size: 14px;
+  }
+}
