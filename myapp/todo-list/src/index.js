@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Employees from './Employees';
-// import TodoApp from './TodoApp';
+// import Employees from './Employees';
+import TodoApp from './TodoApp';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-      {/* <TodoApp /> */}
-    <Employees />
+      <TodoApp />
+    {/* <Employees /> */}
   </React.StrictMode>
 );
 
